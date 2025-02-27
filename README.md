@@ -10,3 +10,12 @@ Descriptions of laboratory work are presented directly in the notebook files.
 When developing tasks, the following open sources were taken into account:
 1) [MIT](https://ocw.mit.edu/courses/6-837-computer-graphics-fall-2012/)
 2) Watt, Alan. 3D Computer Graphics. Addison-Wesley, 1999. ISBN: 9780201398557.
+
+
+List for stars: Lists are ideal for storing multiple objects of the same type and allow for easy iteration and modification.
+
+Dictionary for star_info: Dictionaries provide a clear and flexible way to store and access multiple properties of a star.
+
+Integer for star_numbers: The number of stars must be a whole number.
+
+Float for SPEED: Floating-point numbers allow for smooth and precise movement of stars.
