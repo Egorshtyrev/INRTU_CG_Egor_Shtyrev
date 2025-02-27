@@ -75,16 +75,3 @@ This project is a starfield simulation implemented using Pygame. It creates a 3D
 
 4. **`apply_brightness(color, brightness)`**:
    - Scales the base color by the brightness value.
-
----
-
-## How to Run the Program
-
-### Prerequisites
-- Python 3.x
-- Pygame library
-
-### Installation
-1. Install Pygame:
-   ```bash
-   pip install pygame
