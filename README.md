@@ -1,21 +1,90 @@
-# INTRU CG assignments (In progress)
-## Description
+# Starfield Simulation with Pygame
 
-This repository contains the basic files of laboratory and practical work for students of the AIB, of the Baikal school BRICS, INRTU.
-Descriptions of laboratory work are presented directly in the notebook files.
+This project is a starfield simulation implemented using Pygame. It creates a 3D-like effect of stars moving toward the viewer, with rotating 6-pointed stars that change brightness as they approach. The stars are purple and retain their brightness properties, creating a visually appealing animation.
 
-## Content 
-1) [Win 3.11 Screensaver](https://github.com/gruzdev-as/INRTU_CG/blob/master/Win%203.11.%20ScreenSaver%20for%20students.ipynb)
+---
 
-When developing tasks, the following open sources were taken into account:
-1) [MIT](https://ocw.mit.edu/courses/6-837-computer-graphics-fall-2012/)
-2) Watt, Alan. 3D Computer Graphics. Addison-Wesley, 1999. ISBN: 9780201398557.
+## Features
 
+- **3D Starfield Effect**: Stars move toward the viewer, simulating depth using a Z-coordinate.
+- **Rotating 6-Pointed Stars**: Each star is a rotating hexagram (6-pointed star).
+- **Brightness Control**: Stars start dim and become brighter as they move closer.
+- **Color Customization**: Stars are purple, and their brightness is applied dynamically.
+- **Smooth Animation**: The simulation runs at 60 FPS for smooth motion.
 
-List for stars: Lists are ideal for storing multiple objects of the same type and allow for easy iteration and modification.
+---
 
-Dictionary for star_info: Dictionaries provide a clear and flexible way to store and access multiple properties of a star.
+## Design Choices
 
-Integer for star_numbers: The number of stars must be a whole number.
+### 1. **Star Representation**
+   - Each star is represented as a list `[x, y, z, brightness, rotation_angle]`:
+     - `x`, `y`: 2D coordinates of the star.
+     - `z`: Z-distance (depth) of the star.
+     - `brightness`: Controls the star's brightness (0 to 255).
+     - `rotation_angle`: Angle of rotation for the 6-pointed star.
+   - **Justification**: Using a list is simple and efficient for storing star properties. Each property is easily accessible by index.
 
-Float for SPEED: Floating-point numbers allow for smooth and precise movement of stars.
+### 2. **Coordinate System**
+   - The coordinate system is centered at the middle of the screen:
+     - X and Y coordinates range from `-screen_width//2` to `+screen_width//2` and `-screen_hight//2` to `+screen_hight//2`.
+   - **Justification**: Centering the coordinate system simplifies calculations for perspective and rotation.
+
+### 3. **Perspective Calculation**
+   - The on-screen position of each star is calculated using:
+     \[
+     x_{\text{screen}} = \frac{x \cdot 256}{z} + \text{screen\_center\_x}
+     \]
+     \[
+     y_{\text{screen}} = \frac{y \cdot 256}{z} + \text{screen\_center\_y}
+     \]
+   - **Justification**: This formula simulates a 3D perspective effect, making stars appear smaller and slower as they move farther away.
+
+### 4. **Brightness and Color**
+   - The base color of the stars is purple `(128, 0, 128)`.
+   - Brightness is applied dynamically by scaling the base color:
+     \[
+     \text{color} = \left(\frac{128 \cdot \text{brightness}}{255}, 0, \frac{128 \cdot \text{brightness}}{255}\right)
+     \]
+   - **Justification**: Separating brightness from color allows for smooth transitions and retains the star's visual properties.
+
+### 5. **Rotation**
+   - Each star rotates around its center using a `rotation_angle` property.
+   - The rotation angle is updated every frame to create a spinning effect.
+   - **Justification**: Rotation adds visual interest and makes the stars feel more dynamic.
+
+### 6. **Star Regeneration**
+   - When a star moves off the screen, it is replaced with a new star at a random position.
+   - **Justification**: This ensures the starfield remains full and visually consistent.
+
+---
+
+## Code Structure
+
+### Key Functions
+
+1. **`new_star()`**:
+   - Generates a new star with random coordinates, Z-distance, brightness, and rotation angle.
+
+2. **`move_and_check(star)`**:
+   - Updates the star's position, brightness, and rotation angle.
+   - Checks if the star has moved off the screen and regenerates it if necessary.
+
+3. **`draw_star(star)`**:
+   - Draws a rotating 6-pointed star on the screen using `pygame.draw.polygon`.
+   - Applies brightness to the base color.
+
+4. **`apply_brightness(color, brightness)`**:
+   - Scales the base color by the brightness value.
+
+---
+
+## How to Run the Program
+
+### Prerequisites
+- Python 3.x
+- Pygame library
+
+### Installation
+1. Install Pygame:
+   ```bash
+   pip install pygame
